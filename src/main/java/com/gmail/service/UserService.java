@@ -1,18 +1,21 @@
-package com.gmail.dao;
+package com.gmail.service;
+
 
 import com.gmail.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Space on 04.05.2019.
+ * Created by Space on 06.05.2019.
  */
-public interface UserDao {
-    void insertUser(User user);
+@Service
+public interface UserService {
+    void createUser(User user);
 
-    Optional<User> getUserById(Long id);
+    Optional<User> findById(Long id);
 
     void updateUser(User user);
 

@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
@@ -13,11 +14,12 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
  */
-@Component
+@Repository
 public class UserDaoImpl implements UserDao {
     private static final String SQL_INSERT_USER = "INSERT INTO users (name, password, date_create, birthday_date, random_int) VALUES(:name,:password,:date_create,:birthday_date,:random_int)";
     private static final String SQL_GET_USER_BY_ID = "SELECT * FROM users WHERE id=:id";
@@ -57,10 +59,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserById(Long id) {
+    public Optional<User> getUserById(Long id) {
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("id", id);
-        return namedParameterJdbcTemplate.queryForObject(SQL_GET_USER_BY_ID, params, rowMapper);
+        Optional<User> userOptional = Optional.of(namedParameterJdbcTemplate.queryForObject(SQL_GET_USER_BY_ID, params, rowMapper));
+        return userOptional;
     }
 
     @Override

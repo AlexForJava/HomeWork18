@@ -7,6 +7,8 @@ import com.gmail.entity.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -18,5 +20,6 @@ public class Application {
         UserDao userDao = context.getBean(UserDao.class);
         List<User> users = userDao.getAllUsers();
         users.forEach(System.out::println);
+        LocalDate localDate = LocalDate.now();
     }
 }

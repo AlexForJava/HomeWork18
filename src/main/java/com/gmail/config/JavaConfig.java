@@ -35,6 +35,7 @@ public class JavaConfig {
 
     /**
      * This method create dataSource connection
+     *
      * @return DataSource
      */
     @Bean
@@ -49,7 +50,8 @@ public class JavaConfig {
 
     /**
      * This method inserts a random number in the field with annotation @InjectRandomInt
-     * @return BeanPostProcessor
+     *
+     * @return BeanPostProcessor where in the object injected random number
      */
     @Bean
     public BeanPostProcessor beanPostProcessor() {
@@ -80,6 +82,12 @@ public class JavaConfig {
      * This method load properties from the file
      *
      * @return Properties loaded properties
+     * @throws FileNotFoundException if the file does not exist,
+     *                               is a directory rather than a regular file,
+     *                               or for some other reason cannot be opened for
+     *                               reading.
+     * @throws IOException           if an error occurred when reading from the
+     *                               input stream.
      */
     private static Properties properties() {
         Properties properties = new Properties();
@@ -98,7 +106,7 @@ public class JavaConfig {
      *
      * @param min random number
      * @param max random number
-     * @return
+     * @return int random number between min and max values
      */
     private int getRandomIntInRange(int min, int max) {
         return min + (int) (Math.random() * (max - min));
