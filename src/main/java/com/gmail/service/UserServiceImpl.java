@@ -2,7 +2,9 @@ package com.gmail.service;
 
 import com.gmail.dao.UserDao;
 import com.gmail.entity.User;
+import com.gmail.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @Service
+@Log4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
@@ -28,7 +31,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return userDao.getUserById(id).orElse(new User());
+        try {
+            return userDao.getUserById(id).orElseThrow(UserNotFoundException::new);
+        } catch (UserNotFoundException e) {
+            log.error("UserServiceImpl method findByUser ", e);
+            return new User();
+        }
     }
 
     @Override
