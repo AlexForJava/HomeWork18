@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UserServiceImpl implements UserService {
+public final class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userDao.getUserById(id);
+    public User findById(Long id) {
+        return userDao.getUserById(id).get();
     }
 
     @Override
