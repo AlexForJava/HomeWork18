@@ -10,8 +10,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+
 /**
- * Created by Space on 06.05.2019.
+ * User service implementation
+ *
+ * @author Oleksii Chernii
+ * @version 1.0
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

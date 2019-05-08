@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImplTest extends TestCase {
     private static final String SQL_GET_COUNT = "SELECT count(*) FROM users";
@@ -44,7 +45,8 @@ public class UserDaoImplTest extends TestCase {
 
     @Test
     public void testGetUserById() throws Exception {
-        User user = userDao.getUserById(1L);
+        Optional<User> userOptional = userDao.getUserById(1L);
+        User user1 = userOptional.get();
         assertNotNull(user);
         assertNotNull(user.getName());
         assertNotNull(user.getPassword());

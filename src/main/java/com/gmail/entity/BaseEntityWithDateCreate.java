@@ -4,7 +4,10 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * Created by Space on 04.05.2019.
+ * Base class for entity object with date create *
+ *
+ * @author Oleksii Chernii
+ * @version 1.0
  */
 @Data
 public class BaseEntityWithDateCreate extends BaseEntity {

@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 /**
- * Created by Space on 04.05.2019.
+ * User entity object
+ *
+ * @author Oleksii Chernii
+ * @version 1.0
  */
 @Data
 @Component

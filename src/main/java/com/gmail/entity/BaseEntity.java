@@ -3,7 +3,10 @@ package com.gmail.entity;
 import lombok.Data;
 
 /**
- * Created by Space on 04.05.2019.
+ * Base class for entity object
+ *
+ * @author Oleksii Chernii
+ * @version 1.0
  */
 @Data
 public class BaseEntity {

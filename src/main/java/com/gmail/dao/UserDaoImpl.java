@@ -17,7 +17,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * User data access object implementation
  *
+ * @author Oleksii Chernii
+ * @version 1.0
  */
 @Repository
 public class UserDaoImpl implements UserDao {

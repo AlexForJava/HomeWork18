@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Space on 06.05.2019.
+ * User service interface
+ *
+ * @author Oleksii Chernii
+ * @version 1.0
  */
 @Service
 public interface UserService {

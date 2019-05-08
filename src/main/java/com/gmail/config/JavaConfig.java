@@ -3,19 +3,17 @@ package com.gmail.config;
 import com.gmail.annotations.InjectRandomInt;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.util.ReflectionUtils;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Properties;
 
 /**
  * Configuration Spring class
@@ -25,13 +23,17 @@ import java.util.Properties;
  */
 @Log4j
 @Configuration
+@PropertySource("classpath:config.properties")
 @ComponentScan(basePackages = "com.gmail.")
 public class JavaConfig {
-    private static final String DRIVER_CLASS_NAME = "driverClassName";
-    private static final String URL = "URL";
-    private static final String USER = "user";
-    private static final String PASSWORD = "password";
-    private static final String SOURCE = "src/main/resources/config.properties";
+    @Value("${driverClassName}")
+    private String driverClassName;
+    @Value("${url}")
+    private String url;
+    @Value("${user}")
+    private String user;
+    @Value("${password}")
+    private String password;
 
     /**
      * This method create dataSource connection
@@ -41,10 +43,10 @@ public class JavaConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(properties().getProperty(URL));
-        dataSource.setUsername(properties().getProperty(USER));
-        dataSource.setPassword(properties().getProperty(PASSWORD));
-        dataSource.setDriverClassName(properties().getProperty(DRIVER_CLASS_NAME));
+        dataSource.setUrl(url);
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        dataSource.setDriverClassName(driverClassName);
         return dataSource;
     }
 
@@ -76,29 +78,6 @@ public class JavaConfig {
             }
         };
         return beanPostProcessor;
-    }
-
-    /**
-     * This method load properties from the file
-     *
-     * @return Properties loaded properties
-     * @throws FileNotFoundException if the file does not exist,
-     *                               is a directory rather than a regular file,
-     *                               or for some other reason cannot be opened for
-     *                               reading.
-     * @throws IOException           if an error occurred when reading from the
-     *                               input stream.
-     */
-    private static Properties properties() {
-        Properties properties = new Properties();
-        try (FileInputStream fileInputStream = new FileInputStream(SOURCE)) {
-            properties.load(fileInputStream);
-        } catch (FileNotFoundException e) {
-            log.error("java config ", e);
-        } catch (IOException e) {
-            log.error("java config ", e);
-        }
-        return properties;
     }
 
     /**

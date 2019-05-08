@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Space on 04.05.2019.
+ * User data access object interface
+ *
+ * @author Oleksii Chernii
+ * @version 1.0
  */
 public interface UserDao {
     void insertUser(User user);
